@@ -1,0 +1,11 @@
+PUT http://localhost:8000/employee/save/626e9b71-54f6-44fd-9539-0120cf37daf6
+Content-Type: application/json
+
+{
+  "firstName": "test",
+  "lastName": "AHAHAH",
+  "vacationDays":"18",
+  "compensatoryTimeDays":"2"
+}
+
+###

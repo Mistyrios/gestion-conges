@@ -1,0 +1,12 @@
+POST http://localhost:8000/absence/save
+Content-Type: application/json
+
+{
+  "employee": "b21a85e7-af5b-463d-80a9-352384299307",
+  "startDate": "2020-02-05",
+  "endDate": "2020-02-06",
+  "type": "RTT"
+}
+
+
+###

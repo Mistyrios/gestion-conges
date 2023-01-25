@@ -1,0 +1,11 @@
+POST http://localhost:8000/employee/save
+Content-Type: application/json
+
+{
+  "firstName": "John",
+  "lastName": "Doe",
+  "vacationDays":"8",
+  "compensatoryTimeDays":"1"
+}
+
+###

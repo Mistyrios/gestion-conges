@@ -1,0 +1,4 @@
+GET http://localhost:8000/employee/delete/654116bd-a774-494b-81fa-91b968361aac
+Accept: application/json
+
+###

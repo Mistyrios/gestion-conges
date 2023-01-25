@@ -1,0 +1,4 @@
+GET http://localhost:8000/absence/f93aa68f-fe83-4528-a656-16174c38067f
+Accept: application/json
+
+###

@@ -1,0 +1,4 @@
+GET http://localhost:8000/absence/delete/de24536c-d76e-411f-9b91-2ee5ececfa5d
+Accept: application/json
+
+###
