@@ -26,19 +26,19 @@ class AbsenceControllerTest extends TestCase
                 '626e9b71-54f6-44fd-9539-0120cf37daf6',
                 new \DateTime('2021-01-01'),
                 new \DateTime('2021-01-02'),
-                'vacation'),
+                'CP'),
             new Absence('35c5382b-04c8-4555-aa5c-d07631ef19b5',
                 '35c5382b-04c8-4555-aa5c-d07631ef19b5',
                 new \DateTime('2021-01-01'),
                 new \DateTime('2021-01-02'),
-                'vacation'),
+                'CP'),
         ]));
-        $controller = new AbsenceController($repository,$employeeRepository);
+        $controller = new AbsenceController($repository, $employeeRepository);
 
         $response = $controller->list();
 
         self::assertThat($response, self::isInstanceOf(JsonResponse::class));
-        self::assertThat($response->getContent(), self::equalTo('[{"id":"626e9b71-54f6-44fd-9539-0120cf37daf6","employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"vacation"},{"id":"35c5382b-04c8-4555-aa5c-d07631ef19b5","employee":"35c5382b-04c8-4555-aa5c-d07631ef19b5","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"vacation"}]'));
+        self::assertThat($response->getContent(), self::equalTo('[{"id":"626e9b71-54f6-44fd-9539-0120cf37daf6","employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"CP"},{"id":"35c5382b-04c8-4555-aa5c-d07631ef19b5","employee":"35c5382b-04c8-4555-aa5c-d07631ef19b5","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"CP"}]'));
     }
 
     /**
@@ -55,18 +55,19 @@ class AbsenceControllerTest extends TestCase
                 '626e9b71-54f6-44fd-9539-0120cf37daf6',
                 new \DateTime('2021-01-01'),
                 new \DateTime('2021-01-02'),
-                'vacation'),
+                'CP'),
         );
         $controller = new AbsenceController($repository,$employeeRepository);
 
         $response = $controller->get(1);
 
         self::assertThat($response, self::isInstanceOf(JsonResponse::class));
-        self::assertThat($response->getContent(), self::equalTo('{"id":"626e9b71-54f6-44fd-9539-0120cf37daf6","employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"vacation"}'));
+        self::assertThat($response->getContent(), self::equalTo('{"id":"626e9b71-54f6-44fd-9539-0120cf37daf6","employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":{"date":"2021-01-01 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"endDate":{"date":"2021-01-02 00:00:00.000000","timezone_type":3,"timezone":"UTC"},"type":"CP"}'));
     }
 
     /**
      * @test
+     * @throws \JsonException
      */
     public function should_return_HTTP_status_201_add_absence()
     {
@@ -74,7 +75,7 @@ class AbsenceControllerTest extends TestCase
         $employeeRepository = $this->createMock(EmployeeRepository::class);
         $repository->method('add');
         $request = $this->createMock(Request::class);
-        $request->method('getContent')->willReturn('{"employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":"2021-01-01","endDate":"2021-01-02","type":"vacation"}');
+        $request->method('getContent')->willReturn('{"employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":"2021-01-01","endDate":"2021-01-02","type":"CP"}');
 
         $controller = new AbsenceController($repository,$employeeRepository);
 
@@ -92,7 +93,7 @@ class AbsenceControllerTest extends TestCase
         $employeeRepository = $this->createMock(EmployeeRepository::class);
         $repository->method('add')->willThrowException(new Exception());
         $request = $this->createMock(Request::class);
-        $request->method('getContent')->willReturn('{"employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":"2021-01-01","endDate":"2021-01-02","type":"vacation"}');
+        $request->method('getContent')->willReturn('{"employee":"626e9b71-54f6-44fd-9539-0120cf37daf6","startDate":"2021-01-01","endDate":"2021-01-02","type":"CP"}');
 
         $controller = new AbsenceController($repository,$employeeRepository);
 

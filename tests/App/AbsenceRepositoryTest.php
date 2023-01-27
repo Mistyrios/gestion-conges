@@ -7,6 +7,7 @@ use DBUtils\FileDB;
 use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception;
+use PDO;
 use PHPUnit\Framework\TestCase;
 
 class AbsenceRepositoryTest extends TestCase
@@ -31,8 +32,8 @@ class AbsenceRepositoryTest extends TestCase
             startDate DATE NOT NULL,
             endDate DATE NOT NULL,
             type VARCHAR(255) NOT NULL)");
-        $this->pdoConnection->executeStatement("INSERT INTO absence (id, employee, startDate, endDate, type) VALUES ('626e9b71-54f6-44fd-9539-0120cf37daf6', '626e9b71-54f6-44fd-9539-0120cf37daf6', '2021-01-01', '2021-01-02', 'vacation')");
-        $this->pdoConnection->executeStatement("INSERT INTO absence (id, employee, startDate, endDate, type) VALUES ('35c5382b-04c8-4555-aa5c-d07631ef19b5', '35c5382b-04c8-4555-aa5c-d07631ef19b5', '2021-01-01', '2021-01-02', 'vacation')");
+        $this->pdoConnection->executeStatement("INSERT INTO absence (id, employee, startDate, endDate, type) VALUES ('626e9b71-54f6-44fd-9539-0120cf37daf6', '626e9b71-54f6-44fd-9539-0120cf37daf6', '2021-01-01', '2021-01-02', 'CP')");
+        $this->pdoConnection->executeStatement("INSERT INTO absence (id, employee, startDate, endDate, type) VALUES ('35c5382b-04c8-4555-aa5c-d07631ef19b5', '35c5382b-04c8-4555-aa5c-d07631ef19b5', '2021-01-01', '2021-01-02', 'CP')");
     }
 
     /**
@@ -71,17 +72,17 @@ class AbsenceRepositoryTest extends TestCase
             '4ef3e75e-bdae-4fbe-8584-f21fbb39bb2f',
             new DateTime('2021-01-01'),
             new DateTime('2021-01-02'),
-            'vacation'
+            'CP'
         ));
 
         $record = $this->pdoConnection
             ->executeQuery("SELECT id, employee, startDate, endDate, type FROM absence WHERE id ='35c5382b-04c8-4225-aa5c-d07631ef19b5'")
-            ->fetchAssociative(\PDO::FETCH_ASSOC);
+            ->fetchAssociative(PDO::FETCH_ASSOC);
         self::assertThat($record['id'], self::equalTo('35c5382b-04c8-4225-aa5c-d07631ef19b5'));
         self::assertThat($record['employee'], self::equalTo('4ef3e75e-bdae-4fbe-8584-f21fbb39bb2f'));
         self::assertThat($record['startDate'], self::equalTo('2021-01-01'));
         self::assertThat($record['endDate'], self::equalTo('2021-01-02'));
-        self::assertThat($record['type'], self::equalTo('vacation'));
+        self::assertThat($record['type'], self::equalTo('CP'));
 
     }
 
@@ -115,7 +116,7 @@ class AbsenceRepositoryTest extends TestCase
             '4ef3e75e-bdae-4fbe-8584-f21fbb39bb2f',
             new DateTime('2021-01-01'),
             new DateTime('2021-01-02'),
-            'vacation'
+            'CP'
         ));
     }
 

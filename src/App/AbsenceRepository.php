@@ -102,4 +102,26 @@ class AbsenceRepository
         );
     }
 
+    /**
+     * @param string $employeeId
+     * @param string $startDate
+     * @param string $endDate
+     * @return bool
+     * @throws Exception
+     */
+    public function checkPeriodConflict(string $employeeId, string $startDate, string $endDate): bool
+    {
+        $SQL = $this->connection->createQueryBuilder()
+            ->select('COUNT(*) as count')
+            ->from('absence')
+            ->where('employee = :employeeId')
+            ->andWhere('(startDate <= :startDate AND endDate >= :startDate) OR (startDate <= :endDate AND endDate >= :endDate) OR (startDate >= :startDate AND endDate <= :endDate)')
+            ->getSQL();
+        $statement = $this->connection->prepare($SQL);
+        $result = $statement->executeQuery(['employeeId' => $employeeId, 'startDate' => $startDate, 'endDate' => $endDate]);
+        $record = $result->fetchAssociative();
+        return $record['count'] > 0;
+    }
+
+
 }

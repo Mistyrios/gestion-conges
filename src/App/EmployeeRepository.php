@@ -84,7 +84,7 @@ class EmployeeRepository
     /**
      * @throws Exception
      */
-    public function get(string $id): Employee
+    public function get(string $id): ?Employee
     {
         $SQL = $this->connection->createQueryBuilder()
             ->select('id', 'firstname', 'lastname', 'vacationDays', 'compensatoryTimeDays')
@@ -93,6 +93,9 @@ class EmployeeRepository
             ->getSQL();
         $statement = $this->connection->prepare($SQL);
         $result = $statement->executeQuery(['id' => $id]);
+        if ($result->rowCount() === 0) {
+            return null;
+        }
         $record = $result->fetchAssociative();
         return $this->map($record);
     }

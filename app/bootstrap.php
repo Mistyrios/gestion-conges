@@ -9,7 +9,6 @@ use DI\Container;
 use Doctrine\DBAL\DriverManager;
 
 include __DIR__.'/../vendor/autoload.php';
-$holidaysDates = include __DIR__.'/holidays.php';
 
 $container = new Container();
 
@@ -34,7 +33,7 @@ $container->set('AbsenceRepository' , function (Container $c){
     return new AbsenceRepository($c->get('Connection'));
 });
 
-$container->set('AbsenceController' , function (Container $c){
+$container->set('AbsenceController' , function (Container $c) {
     return new AbsenceController($c->get('AbsenceRepository'), $c->get('EmployeeRepository'));
 });
 
